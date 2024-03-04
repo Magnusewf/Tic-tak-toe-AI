@@ -11,7 +11,7 @@ tf.random.set_seed(0)
 data = np.loadtxt('data_tic_tak_toe_v0.csv', delimiter=',')
 
 posisjoner_pa_brett = data[0:1000000, 0:18]
-vinner = (data[0:1000000, 18] == 1)*1
+vinner = (data[0:1000000, 18] == 2)*1
 
 print("data loded")
 # Define the model
@@ -27,7 +27,7 @@ model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy']
 
 # Train the model with the callback
 model.fit(posisjoner_pa_brett, vinner, epochs=3, batch_size=32, verbose=1)
-model.save('forste_model_tic_tak_toe.h5') 
+model.save('forste_model_tic_tak_toe_p2.h5') 
 
 # Evaluate the model
 loss, accuracy = model.evaluate(posisjoner_pa_brett, vinner, verbose=1)

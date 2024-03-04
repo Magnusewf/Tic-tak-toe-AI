@@ -44,40 +44,61 @@ def finner_mulige_trekk(spiler1, spiler2):
     return all_mulig_posisjoner
 
 
-def spiler_skal_plassere(spiler1, all_mulig_posisjoner):
+def spiler_skal_plassere(spiler, all_mulig_posisjoner):
     while True:
         move = int(input('Hvilken posisjon vil du legge til? '))-1
         if move in all_mulig_posisjoner:
-            spiler1[move] = True
+            spiler[move] = True
             break
         else:
             print('Posisjonen er tatte, prøv igjen.')
 
 def spill_mot_computer():
-    model = load_model('forste_model_tic_tak_toe.h5')
     spiler1= [False]*9
     spiler2= [False]*9
 
+    hvemsom_starter = input('Do you want to start? (y/n)')
+
+    if hvemsom_starter == 'y':
+        model = load_model('forste_model_tic_tak_toe_p2.h5')
+    else:
+        model = load_model('forste_model_tic_tak_toe.h5')
     for x in range(9):
 
         all_mulig_posisjoner = finner_mulige_trekk(spiler1, spiler2)
 
+        if hvemsom_starter == 'y':
+            if x % 2 == 0:
+                spiler_skal_plassere(spiler1, all_mulig_posisjoner)
+            else:
+                best_move = None
+                best_prediction = None
 
-        if x % 2 == 0:
-            best_move = None
-            best_prediction = None
-
-            for move in all_mulig_posisjoner:
-                combined = spiler1 + spiler2
-                combined[move+9] = True
-                prediction = model.predict([combined*1])
-                print(prediction, move)
-                if best_move is None or prediction < best_prediction:
-                    best_move = move
-                    best_prediction = prediction
-            spiler2[best_move] = True
+                for move in all_mulig_posisjoner:
+                    combined = spiler1 + spiler2
+                    combined[move+9] = True
+                    prediction = model.predict([combined*1])
+                    print(prediction, move)
+                    if best_move is None or prediction > best_prediction:
+                        best_move = move
+                        best_prediction = prediction
+                spiler2[best_move] = True
         else:
-            spiler_skal_plassere(spiler1, all_mulig_posisjoner)
+            if x % 2 == 0:
+                best_move = None
+                best_prediction = None
+
+                for move in all_mulig_posisjoner:
+                    combined = spiler1 + spiler2
+                    combined[move] = True
+                    prediction = model.predict([combined*1])
+                    print(prediction, move)
+                    if best_move is None or prediction > best_prediction:
+                        best_move = move
+                        best_prediction = prediction
+                spiler1[best_move] = True
+            else:
+                spiler_skal_plassere(spiler2, all_mulig_posisjoner)
 
         print_board(spiler1, spiler2)
         if har_noen_vunnet(spiler1):
