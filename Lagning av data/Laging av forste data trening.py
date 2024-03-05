@@ -76,49 +76,13 @@ def writing_to_csv(antall_ganger):
     for x in range(antall_ganger):
         print(x)
         result = simulate_game()
-        with open("data_tic_tak_toe_v0.csv", 'a', newline='') as f:
+        with open("Data set\\data_tic_tak_toe_v0.csv", 'a', newline='') as f:
             writer = csv.writer(f)
             writer.writerows(result)
 
-def spiler_skal_plassere(spiler1, all_mulig_posisjoner):
-    while True:
-        move = int(input('Hvilken posisjon vil du legge til? '))-1
-        if move in all_mulig_posisjoner:
-            spiler1[move] = True
-            break
-        else:
-            print('Posisjonen er tatte, prøv igjen.')
 
-def spill_mot_computer():
-    spiler1= [False]*9
-    spiler2= [False]*9
-    hvemsom_starter = input('Do you want to start? (y/n)')
-    for x in range(9):
 
-        all_mulig_posisjoner = finner_mulige_trekk(spiler1, spiler2)
-
-        if hvemsom_starter == 'y':
-            if x % 2 == 0:
-                spiler_skal_plassere(spiler1, all_mulig_posisjoner)
-            else:
-                spiler2[random.choice(all_mulig_posisjoner)] = True
-        else:
-            if x % 2 == 0:
-                spiler2[random.choice(all_mulig_posisjoner)] = True
-            else:
-                spiler_skal_plassere(spiler1, all_mulig_posisjoner)
-
-        print_board(spiler1, spiler2)
-        if har_noen_vunnet(spiler1):
-            return "Spiller 1 har vunnet"
-        elif har_noen_vunnet(spiler2):
-            return "Spiller 2 har vunnet"
-    return "Ingen har vant"
-
-while True:
-    print(spill_mot_computer())
-    if input('Vil du spille igjen? (y/n)') == 'n':
-        break
+writing_to_csv(1000000)
 
 
 

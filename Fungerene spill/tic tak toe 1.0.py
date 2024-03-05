@@ -60,9 +60,9 @@ def spill_mot_computer():
     hvemsom_starter = input('Do you want to start? (y/n)')
 
     if hvemsom_starter == 'y':
-        model = load_model('forste_model_tic_tak_toe_p2.h5')
+        model = load_model('Modeler\\forste_model_tic_tak_toe_p2.h5')
     else:
-        model = load_model('forste_model_tic_tak_toe.h5')
+        model = load_model('Modeler\\forste_model_tic_tak_toe.h5')
     for x in range(9):
 
         all_mulig_posisjoner = finner_mulige_trekk(spiler1, spiler2)

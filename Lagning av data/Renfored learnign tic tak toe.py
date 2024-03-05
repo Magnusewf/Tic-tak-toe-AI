@@ -1,5 +1,4 @@
 from tensorflow.keras.models import load_model
-import random
 import numpy as np
 import csv
 import threading
@@ -99,8 +98,8 @@ def simulate_game(model_p1, model_p2):
 
 def writing_to_csv(antall_ganger, fillnavn, seed):
     np.random.seed(seed)
-    model_p1 = load_model('forste_model_tic_tak_toe.h5')
-    model_p2 = load_model('forste_model_tic_tak_toe_p2.h5')
+    model_p1 = load_model('Modeler\\forste_model_tic_tak_toe.h5')
+    model_p2 = load_model('Modeler\\forste_model_tic_tak_toe_p2.h5')
     if fillnavn == 'data_tic_tak_toe_v1.csv':
         hvem = 'p1'
     else:   
@@ -113,5 +112,5 @@ def writing_to_csv(antall_ganger, fillnavn, seed):
             writer.writerows(result)
 
 
-threading.Thread(target=writing_to_csv, args=(10000, 'data_tic_tak_toe_v1.csv', 2)).start()
-threading.Thread(target=writing_to_csv, args=(10000, 'data_tic_tak_toe_v1_2.csv', 3)).start()
+threading.Thread(target=writing_to_csv, args=(10000, 'Data set\\data_tic_tak_toe_v1.csv', 4)).start()
+threading.Thread(target=writing_to_csv, args=(10000, 'Data set\\data_tic_tak_toe_v1_2.csv', 5)).start()
