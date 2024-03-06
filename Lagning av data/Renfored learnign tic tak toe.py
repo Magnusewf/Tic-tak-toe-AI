@@ -96,8 +96,7 @@ def simulate_game(model_p1, model_p2):
     return game_matrix
 
 
-def writing_to_csv(antall_ganger, fillnavn, seed):
-    np.random.seed(seed)
+def writing_to_csv(antall_ganger, fillnavn):
     model_p1 = load_model('Modeler\\forste_model_tic_tak_toe.h5')
     model_p2 = load_model('Modeler\\forste_model_tic_tak_toe_p2.h5')
     if fillnavn == 'data_tic_tak_toe_v1.csv':
@@ -112,5 +111,5 @@ def writing_to_csv(antall_ganger, fillnavn, seed):
             writer.writerows(result)
 
 
-threading.Thread(target=writing_to_csv, args=(10000, 'Data set\\data_tic_tak_toe_v1.csv', 4)).start()
-threading.Thread(target=writing_to_csv, args=(10000, 'Data set\\data_tic_tak_toe_v1_2.csv', 5)).start()
+threading.Thread(target=writing_to_csv, args=(10000, 'Data set\data_tic_tak_toe_v1_eval.csv')).start()
+
